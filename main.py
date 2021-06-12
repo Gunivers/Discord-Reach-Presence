@@ -9,12 +9,26 @@ from tqdm import tqdm
 
 from config import *
 
+error_nbr = 0
+
 
 def clear_console():
     if platform == "linux" or platform == "darwin":
         os.system('clear')
     elif platform == "win32":
         os.system('cls')
+
+
+def altearn_rpc():
+    clear_console()
+    print("    ___  _ _                         ____________  _____")
+    print("   / _ \| | |                        | ___ \ ___ \/  __ \ ")
+    print("  / /_\ \ | |_ ___  __ _ _ __ _ __   | |_/ / |_/ /| /  \/")
+    print("  |  _  | | __/ _ \/ _` | '__| '_ \  |    /|  __/ | |")
+    print("  | | | | | ||  __/ (_| | |  | | | | | |\ \| |    | \__/\ ")
+    print("  \_| |_/_|\__\___|\__,_|_|  |_| |_| \_| \_\_|     \____/")
+    print("")
+
 
 while True:
     try:
@@ -44,7 +58,7 @@ while True:
                    large_text=lt)
 
         # Afficher une interface basique
-        clear_console()
+        altearn_rpc()
         print("En cours d'affichage: " + str(name))
         print("Citation: " + str(lt))
         print("")
@@ -57,7 +71,24 @@ while True:
         # Fermer la connection actuelle
         RPC.close()
 
+        error_nbr = 0
+
     except KeyboardInterrupt:
         print("Fermeture de la connection RPC...")
         RPC.close()
         exit()
+
+    except ConnectionRefusedError:
+        if error_nbr == 5:
+            altearn_rpc()
+            print("Arrêt du programme aprés 5 tentatives infructueuses de connection à Discord.")
+            exit()
+        else:
+            error_nbr += 1
+            altearn_rpc()
+            print("Impossible de se connecter à Discord... (Tentative n°" + str(error_nbr) + ")")
+            print("Avez-vous le client allumé ?")
+            print(" ")
+            print("Nouvelle tentative dans :")
+            for i in tqdm(range(300), bar_format="|{bar}|{remaining}{postfix}"):
+                time.sleep(0.2)
