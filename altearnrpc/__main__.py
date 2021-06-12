@@ -17,7 +17,9 @@ parser.add_argument("--endless", help="désactiver la limitation d'essais infruc
                     action="store_true")
 args = parser.parse_args()
 if args.quiet:
-    print("verbosity turned on")
+    print("Mode silencieux activé")
+if args.endless:
+    print("Mode sans fin activé, le programme ne s'arretera pas lors d'un echec de connection")
 
 
 def clear_console():
@@ -79,7 +81,8 @@ def main():
                        large_text=lt)
 
             # Afficher une interface basique
-            if not args.quiet:
+            if args.quiet:
+                print("Affichage de " + str(name))
                 time.sleep(config.change_time)
             else:
                 altearn_rpc()
@@ -103,30 +106,33 @@ def main():
             exit()
 
         except ConnectionRefusedError:
-            if not args.endless:
-                if config.retry_number >= 2:
-                    if error_nbr == config.retry_number:
-                        altearn_rpc()
-                        print(
-                            "Arrêt du programme aprés" + config.retry_number + "tentatives infructueuses de connection à Discord.")
-                        exit()
-                elif config.retry_number == 1:
-                    if error_nbr == config.retry_number:
-                        altearn_rpc()
-                        print("Arrêt du programme aprés une tentative infructueuse de connection à Discord.")
-                        exit()
-            else:
-                if not args.quiet:
-                    time.sleep(config.retry_time)
-                else:
-                    error_nbr += 1
+            try:
+                if 2 <= config.retry_number == error_nbr and not args.endless:
                     altearn_rpc()
-                    print("Impossible de se connecter à Discord... (Tentative n°" + str(error_nbr) + ")")
-                    print("Avez-vous le client allumé ?")
-                    print(" ")
-                    print("Nouvelle tentative dans :")
-                    for _ in tqdm(range(int(config.retry_time // 0.2)), bar_format="|{bar}|{remaining}{postfix}"):
-                        time.sleep(0.2)
+                    print(
+                        "Arrêt du programme aprés" + config.retry_number + "tentatives infructueuses de connection à Discord.")
+                    exit()
+                elif config.retry_number == error_nbr == 1 and not args.endless:
+                    altearn_rpc()
+                    print("Arrêt du programme aprés une tentative infructueuse de connection à Discord.")
+                    exit()
+                else:
+                    if args.quiet:
+                        error_nbr += 1
+                        print("Tentative de connection à Discord RPC, tentative n°" + str(error_nbr))
+                        time.sleep(config.retry_time)
+                    else:
+                        error_nbr += 1
+                        altearn_rpc()
+                        print("Impossible de se connecter à Discord... (Tentative n°" + str(error_nbr) + ")")
+                        print("Avez-vous le client allumé ?")
+                        print(" ")
+                        print("Nouvelle tentative dans :")
+                        for _ in tqdm(range(int(config.retry_time // 0.2)), bar_format="|{bar}|{remaining}{postfix}"):
+                            time.sleep(0.2)
+            except KeyboardInterrupt:
+                print("Annulation de la tentative et fermeture...")
+                exit()
 
 
 if __name__ == "__main__":

@@ -9,7 +9,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="altearnrpc",
-    version="0.1.3",
+    version="0.1.5",
     description="Un client Discord RPC pour Altearn",
     long_description=README,
     long_description_content_type="text/markdown",
