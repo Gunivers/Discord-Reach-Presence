@@ -51,7 +51,7 @@ while True:
         print("Prochain changement :")
 
         # Attendre 60 secondes avec un barre de chargement
-        for i in tqdm(range(300)):
+        for i in tqdm(range(300), bar_format="|{bar}|{remaining}{postfix}"):
             time.sleep(0.2)
 
         # Fermer la connection actuelle
