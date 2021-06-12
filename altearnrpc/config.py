@@ -43,7 +43,8 @@ large_image_night = {"Altearn": "altearn_black",
                      "Curiosity": "curiosity"}
 
 # Boutons pour chaque éléments
-buttons = {"Altearn": [{"label": "En savoir plus", "url": "https://altearn.xyz/"}],
+buttons = {"Altearn": [{"label": "En savoir plus", "url": "https://altearn.xyz/"},
+                       {"label": "Wiki", "url": "https://wiki.altearn.xyz"}],
            "Gunivers": [{"label": "En savoir plus", "url": "https://gunivers.net/"},
                         {"label": "Discord", "url": "https://discord.gg/E8qq6tN"}],
            "Curiosity": [{"label": "Discord", "url": "https://discord.gg/8Dub7zVvV9"}]}
