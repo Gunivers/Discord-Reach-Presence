@@ -7,6 +7,18 @@
 #
 #
 
+# Durée entre chaque changement de statut (en secondes)
+# /!\ Discord impose 15s minimum entre chaque changement
+change_time = 60
+
+# Durée entre chaque tentative de connection aprés une erreur
+# Mettre ce temps trés bas n'est pas recommandé, surtout si retry_number est sur 0
+retry_time = 60
+
+# Nombre de tentatives de connexion échouées à la suite avant de quitter le programme
+# Définir à 0 pour désactiver
+retry_number = 5
+
 # Noms des différents éléments à afficher
 names = ["Altearn", "Gunivers", "Curiosity"]
 
