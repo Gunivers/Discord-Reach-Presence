@@ -13,7 +13,7 @@ PyPresence et TQDM sont installés automatiquement par pip
 
 
 ## Mise à jour
-`python -m pip install -U altearnrpc`
+`pip install -U altearnrpc`
 
 ## Démarrage
 `python -m altearnrpc`
