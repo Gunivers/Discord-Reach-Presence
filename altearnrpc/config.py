@@ -57,5 +57,6 @@ quotes = [
     "Pain au chocolat ou chocolatine ? -- 301, 2017",
     "Fromage -- Fantomitechno, 2021",
     "On peut être efficace (sérieux c'est moins sur) -- Leirof, 2021",
-    "Never gonna give you up -- Rick Asley"
+    "J'ai essayé j'ai pas réussi -- Aeris One, 2021"
+    "Never gonna give you up -- Rick Astley, 2009"
 ]
